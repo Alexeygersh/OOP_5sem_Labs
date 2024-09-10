@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+/.vs/oop_GershA
+/oop_GershA/x64/Debug/oop_GershA.tlog
+/x64/Debug
+/oop_GershA/x64/Debug
+/oop_GershA.sln
+/oop_GershA.vcxproj
+/oop_GershA.vcxproj.filters
+/oop_GershA.vcxproj.user
