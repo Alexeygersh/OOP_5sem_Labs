@@ -1,6 +1,5 @@
 #include "Player.h"
-#include <iostream>
-#include <fstream>
+#include "utils.h"
 
 
 Player::Player()
@@ -9,33 +8,106 @@ Player::Player()
 Player::~Player() {}
 
 void Player::readFromConsole() {
-    std::cout << "Enter player's ID: ";
-    std::cin >> id;
+    // ¬вод ID
+    while (true) {
+        std::cout << "Enter player's ID (positive integer): ";
+        //id = InputNum<int>(0, 999999);
+        std::cin >> id;
+        if (std::cin.fail() || id <= 0 || (std::cin.peek() != '\n')) {
+            std::cout << "Invalid input. Please enter a positive integer.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            break;
+        }
+    }
     std::cin.ignore();
 
+    // им€
     std::cout << "Enter player's name: ";
     std::getline(std::cin, name);
 
-    std::cout << "Enter player's age: ";
-    std::cin >> age;
+    // возраст
+    while (true) {
+        std::cout << "Enter player's age (0-120): ";
+        std::cin >> age;
+        if (std::cin.fail() || age < 0 || age > 120 || (std::cin.peek() != '\n')) {
+            std::cout << "Please enter an age between 0 and 120.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            break;
+        }
+    }
 
-    std::cout << "Enter player's rating: ";
-    std::cin >> rating;
+    // рейтинг
+    while (true) {
+        std::cout << "Enter player's rating (0-3000): ";
+        std::cin >> rating;
+        if (std::cin.fail() || rating < 0 || rating > 3000 || (std::cin.peek() != '\n')) {
+            std::cout << "Please enter rating between 0 and 3000.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            break;
+        }
+    }
 
-    char genderInput;
-    std::cout << "Enter player's gender (M/F): ";
-    std::cin >> genderInput;
-    gender = (genderInput == 'M' || genderInput == 'm') ? Male : Female;
+    // пол
+    while (true) {
+        char genderInput;
+        std::cout << "Enter player's gender (M/F): ";
+        std::cin >> genderInput;
+        if (genderInput == 'M' || genderInput == 'm') {
+            gender = Male;
+            break;
+        }
+        else if (genderInput == 'F' || genderInput == 'f') {
+            gender = Female;
+            break;
+        }
+        else {
+            std::cout << "Please enter 'M' for Male or 'F' for Female.\n";
+        }
+    }
     std::cin.ignore();
 
+    // дата регистрации
     std::cout << "Enter registration date (DD-MM-YYYY): ";
     std::getline(std::cin, registrationDate);
 
-    std::cout << "Is the player active? (1 for Yes, 0 for No): ";
-    std::cin >> isActive;
+    // активность
+    while (true) {
+        int activeInput;
+        std::cout << "Is the player active? (1 for Yes, 0 for No): ";
+        std::cin >> activeInput;
+        if (std::cin.fail() || (activeInput != 0 && activeInput != 1)) {
+            std::cout << "Please enter 1 (Yes) or 0 (No).\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            isActive = (activeInput == 1);
+            break;
+        }
+    }
 
-    std::cout << "Enter player's ranking position: ";
-    std::cin >> rankingPosition;
+    // ¬вод позиции в рейтинге
+    while (true) {
+        std::cout << "Enter player's ranking position (positive double): ";
+        std::cin >> rankingPosition;
+        if (std::cin.fail() || rankingPosition < 0.0 || (std::cin.peek() != '\n')) {
+            std::cout << "Please enter a positive number.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            break;
+        }
+    }
     std::cin.ignore();
 }
 
