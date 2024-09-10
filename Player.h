@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 
+
 // Определение перечисления для пола
 enum Gender {
     Male = 'M',

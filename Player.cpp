@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+
 Player::Player()
     : id(0), name("Unknown"), age(0), rating(0), gender(Male), registrationDate("01-09-2024"), isActive(true), rankingPosition(0.0) {}
 
