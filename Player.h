@@ -6,8 +6,8 @@
 
 // Определение перечисления для пола
 enum Gender {
-    Male = 'M',
-    Female = 'F'
+    Male = 'М',
+    Female = 'Ж'
 };
 
 class Player {

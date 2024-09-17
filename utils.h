@@ -12,7 +12,7 @@ T InputNum(T start, T end)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "incorrect number, try again\n";
+        std::cout << "Некорректный ввод, повторите снова\n";
         (std::cin >> param);
     }
     

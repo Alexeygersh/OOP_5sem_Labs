@@ -1,11 +1,12 @@
 #include "PlayerContainer.h"
 #include "utils.h"
 #include <iostream>
-
+#include <cstdlib>
 
 int main() {
 
     setlocale(LC_ALL, "");
+    std::system("chcp 1251");
 
     PlayerContainer container;
     int choice;

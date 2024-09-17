@@ -24,23 +24,10 @@ void Player::readFromConsole() {
     std::cout << "Введите рейтинг игрока (0-3000): ";
     rating = InputNum<int>(0, 3000);
 
-    // пол
-    while (true) {
-        char genderInput;
-        std::cout << "Введите пол (M/F): ";
-        std::cin >> genderInput;
-        if (genderInput == 'M' || genderInput == 'm') {
-            gender = Male;
-            break;
-        }
-        else if (genderInput == 'F' || genderInput == 'f') {
-            gender = Female;
-            break;
-        }
-        else {
-            std::cout << "Пожалуйста введите 'M' для Мужского пола или 'F' для женского.\n";
-        }
-    }
+    std::cout << "Введите пол | '0' для Мужского пола или '1' для женского: ";
+    bool genderInput = InputNum<bool>(0, 1);
+    gender = (genderInput == 0) ? Male : Female;
+
     std::cin.ignore();
 
     std::cout << "Введите дату регистрации (DD-MM-YYYY): ";
@@ -49,7 +36,7 @@ void Player::readFromConsole() {
     std::cout << "Игрок активен в данный момент? (1 - да, 0 - нет): ";
     isActive = InputNum<bool>(0, 1);
 
-    std::cout << "Введите позицию игрока на турнире (положительное дробное): ";
+    std::cout << "Введите позицию игрока на турнире: ";
     rankingPosition = InputNum<double>(0, 500);
     std::cin.ignore();
 }
@@ -74,7 +61,7 @@ void Player::readFromFile(std::ifstream& inputFile) {
 
     char genderChar;
     inputFile >> genderChar;
-    gender = (genderChar == 'M' || genderChar == 'm') ? Male : Female;
+    gender = (genderChar == '1') ? Male : Female;
     inputFile.ignore();
 
     std::getline(inputFile, registrationDate);
