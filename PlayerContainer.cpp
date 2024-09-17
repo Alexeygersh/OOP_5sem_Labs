@@ -24,7 +24,7 @@ void PlayerContainer::displayPlayers() const {
 void PlayerContainer::readFromFile(const std::string& filename) {
     std::ifstream inputFile(filename);
     if (!inputFile) {
-        std::cerr << "Error opening file: " << filename << std::endl;
+        std::cerr << "Ошибка открытия файла: " << filename << std::endl;
         return;
     }
 
@@ -46,7 +46,7 @@ void PlayerContainer::readFromFile(const std::string& filename) {
 void PlayerContainer::writeToFile(const std::string& filename) const {
     std::ofstream outputFile(filename);
     if (!outputFile) {
-        std::cerr << "Error opening file: " << filename << std::endl;
+        std::cerr << "Ошибка открытия файла: " << filename << std::endl;
         return;
     }
 

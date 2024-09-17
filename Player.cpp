@@ -3,63 +3,31 @@
 
 
 Player::Player()
-    : id(0), name("Unknown"), age(0), rating(0), gender(Male), registrationDate("01-09-2024"), isActive(true), rankingPosition(0.0) {}
+    : id(0), name("Неизвестно"), age(0), rating(0), gender(Male), registrationDate("01-09-2024"), isActive(true), rankingPosition(0.0) {}
 
 Player::~Player() {}
 
 void Player::readFromConsole() {
-    // Ввод ID
-    while (true) {
-        std::cout << "Enter player's ID (positive integer): ";
-        //id = InputNum<int>(0, 999999);
-        std::cin >> id;
-        if (std::cin.fail() || id <= 0 || (std::cin.peek() != '\n')) {
-            std::cout << "Invalid input. Please enter a positive integer.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else {
-            break;
-        }
-    }
-    std::cin.ignore();
+    std::cout << "Введите ID игрока (положительное целочисленое): ";
 
-    // имя
-    std::cout << "Enter player's name: ";
+    id = InputNum<int>(0, 9999);
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::cout << "Введите имя игрока: ";
     std::getline(std::cin, name);
+    
+    std::cout << "Введите возраст игрока (0-120): ";
+    age = InputNum<int>(0, 120);
 
-    // возраст
-    while (true) {
-        std::cout << "Enter player's age (0-120): ";
-        std::cin >> age;
-        if (std::cin.fail() || age < 0 || age > 120 || (std::cin.peek() != '\n')) {
-            std::cout << "Please enter an age between 0 and 120.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else {
-            break;
-        }
-    }
-
-    // рейтинг
-    while (true) {
-        std::cout << "Enter player's rating (0-3000): ";
-        std::cin >> rating;
-        if (std::cin.fail() || rating < 0 || rating > 3000 || (std::cin.peek() != '\n')) {
-            std::cout << "Please enter rating between 0 and 3000.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else {
-            break;
-        }
-    }
+    std::cout << "Введите рейтинг игрока (0-3000): ";
+    rating = InputNum<int>(0, 3000);
 
     // пол
     while (true) {
         char genderInput;
-        std::cout << "Enter player's gender (M/F): ";
+        std::cout << "Введите пол (M/F): ";
         std::cin >> genderInput;
         if (genderInput == 'M' || genderInput == 'm') {
             gender = Male;
@@ -70,56 +38,31 @@ void Player::readFromConsole() {
             break;
         }
         else {
-            std::cout << "Please enter 'M' for Male or 'F' for Female.\n";
+            std::cout << "Пожалуйста введите 'M' для Мужского пола или 'F' для женского.\n";
         }
     }
     std::cin.ignore();
 
-    // дата регистрации
-    std::cout << "Enter registration date (DD-MM-YYYY): ";
+    std::cout << "Введите дату регистрации (DD-MM-YYYY): ";
     std::getline(std::cin, registrationDate);
 
-    // активность
-    while (true) {
-        int activeInput;
-        std::cout << "Is the player active? (1 for Yes, 0 for No): ";
-        std::cin >> activeInput;
-        if (std::cin.fail() || (activeInput != 0 && activeInput != 1)) {
-            std::cout << "Please enter 1 (Yes) or 0 (No).\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else {
-            isActive = (activeInput == 1);
-            break;
-        }
-    }
+    std::cout << "Игрок активен в данный момент? (1 - да, 0 - нет): ";
+    isActive = InputNum<bool>(0, 1);
 
-    // Ввод позиции в рейтинге
-    while (true) {
-        std::cout << "Enter player's ranking position (positive double): ";
-        std::cin >> rankingPosition;
-        if (std::cin.fail() || rankingPosition < 0.0 || (std::cin.peek() != '\n')) {
-            std::cout << "Please enter a positive number.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else {
-            break;
-        }
-    }
+    std::cout << "Введите позицию игрока на турнире (положительное дробное): ";
+    rankingPosition = InputNum<double>(0, 500);
     std::cin.ignore();
 }
 
 void Player::displayToConsole() const {
     std::cout << "ID: " << id
-        << ", Name: " << name
-        << ", Age: " << age
-        << ", Rating: " << rating
-        << ", Gender: " << (gender == Male ? "Male" : "Female")
-        << ", Registration Date: " << registrationDate
-        << ", Active: " << (isActive ? "Yes" : "No")
-        << ", Ranking Position: " << rankingPosition
+        << ", Имя: " << name
+        << ", Возраст: " << age
+        << ", Рейтинг: " << rating
+        << ", Пол: " << (gender == Male ? "М" : "Ж")
+        << ", Дата регистрации: " << registrationDate
+        << ", Активен?: " << (isActive ? "Да" : "Нет")
+        << ", Позиция на турнире: " << rankingPosition
         << std::endl;
 }
 
