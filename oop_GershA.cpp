@@ -2,11 +2,16 @@
 #include "utils.h"
 #include <iostream>
 #include <cstdlib>
+#include <boost/serialization/export.hpp>
 
 int main() {
 
     setlocale(LC_ALL, "");
     std::system("chcp 1251");
+    //std::locale::global(std::locale("rus_rus.866"));
+    //wcin.imbue(std::locale());
+    //wcout.imbue(std::locale());
+
 
     PlayerContainer container;
     int choice;
@@ -14,13 +19,14 @@ int main() {
     do {
         std::cout << "Система шахматного турнира\n";
         std::cout << "1. Добавить игрока\n";
-        std::cout << "2. Вывести всех игроков\n";
-        std::cout << "3. Загрузить игроков из файла\n";
-        std::cout << "4. Сохранить игроков в файл\n";
-        std::cout << "5. Очистить всех игроков\n";
+        std::cout << "2. Добавить судью\n";
+        std::cout << "3. Вывести всех игроков\n";
+        std::cout << "4. Загрузить игроков из файла\n";
+        std::cout << "5. Сохранить игроков в файл\n";
+        std::cout << "6. Очистить всех игроков\n";
         std::cout << "0. Выход\n";
         std::cout << "Введите ваш выбор: ";
-        choice = InputNum<int>(0, 5);
+        choice = InputNum<int>(0, 6);
         
         switch (choice) {
         case 1: {
@@ -28,11 +34,15 @@ int main() {
             break;
         }
         case 2: {
+            container.addJudge();
+            break;
+        }
+        case 3: {
             container.displayPlayers();
             break;
         }
             
-        case 3: {
+        case 4: {
             std::string filename;
             std::cout << "Введите название файла: ";
             std::cin.clear();
@@ -41,7 +51,7 @@ int main() {
             container.readFromFile(filename);
             break;
         }
-        case 4: {
+        case 5: {
             std::string filename;
             std::cout << "Введите название файла: ";
             std::cin.clear();
@@ -50,7 +60,7 @@ int main() {
             container.writeToFile(filename);
             break;
         }
-        case 5:
+        case 6:
             container.clearPlayers();
             break;
         case 0:
@@ -63,3 +73,6 @@ int main() {
 
     return 0;
 }
+
+BOOST_CLASS_EXPORT(Judge)
+BOOST_CLASS_EXPORT(Player)

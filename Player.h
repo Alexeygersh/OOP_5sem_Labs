@@ -2,7 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <boost/serialization/serialization.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 // Определение перечисления для пола
 enum Gender {
@@ -12,22 +14,36 @@ enum Gender {
 
 class Player {
 private:
-    int id;
+    //int id;
     std::string name;
     int age;
     int rating;
-    Gender gender;
+    char gender;
     std::string registrationDate;
     bool isActive;
-    double rankingPosition;
+    //double rankingPosition;
+
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int version) {
+        ar& name;
+        ar& age;
+        ar& rating;
+        ar& gender;
+        ar& registrationDate;
+        ar& isActive;
+    }
 
 public:
-    Player(); // Конструктор
-    ~Player(); // Деструктор
+    Player();
+    virtual ~Player();
 
-    // Функции для работы с атрибутами
-    void readFromConsole();
-    void displayToConsole() const;
-    void readFromFile(std::ifstream& inputFile);
-    void writeToFile(std::ofstream& outputFile) const;
+    virtual void readFromConsole();
+    virtual void displayToConsole() const;
+
+    virtual void readFromFile(std::ifstream& inputFile);
+    virtual void writeToFile(std::ofstream& outputFile) const;
+    int getAge() const { return age; }
 };
+

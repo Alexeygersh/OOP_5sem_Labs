@@ -1,64 +1,72 @@
 #include "PlayerContainer.h"
-#include <iostream>
-#include <fstream>
-
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_woarchive.hpp>
+#include <boost/archive/text_wiarchive.hpp>
+#include <locale>
 
 PlayerContainer::PlayerContainer() {}
 
 PlayerContainer::~PlayerContainer() {
-    clearPlayers(); // Удаляем все элементы перед уничтожением контейнера
+    clearPlayers();
 }
 
 void PlayerContainer::addPlayer() {
-    Player* newPlayer = new Player();
+    std::shared_ptr<Player> newPlayer = std::make_shared<Player>();
     newPlayer->readFromConsole();
     players.push_back(newPlayer);
 }
 
+void PlayerContainer::addJudge() {
+    std::shared_ptr<Judge> newJudge = std::make_shared<Judge>();
+    newJudge->readFromConsole();
+    players.push_back(newJudge);
+}
+
 void PlayerContainer::displayPlayers() const {
-    for (const Player* player : players) {
+    for (const auto& player : players) {
         player->displayToConsole();
     }
 }
 
 void PlayerContainer::readFromFile(const std::string& filename) {
     std::ifstream inputFile(filename);
-    if (!inputFile) {
-        std::cerr << "Ошибка открытия файла: " << filename << std::endl;
-        return;
+    //file.imbue(std::locale("en_US.UTF-8"));
+
+    if (inputFile.is_open()) {
+        boost::archive::text_iarchive ia(inputFile);
+        ia >> *this;
     }
+    
 
-    clearPlayers(); // Очистка списка перед загрузкой
-
-    while (!inputFile.eof()) {
+    /*while (!inputFile.eof()) {
         Player* newPlayer = new Player();
         newPlayer->readFromFile(inputFile);
-        if (inputFile) {
+        if (inputFile.is_open()) {
             players.push_back(newPlayer);
         }
         else {
-            delete newPlayer; // Освобождение памяти, если чтение не удалось
+            delete newPlayer;
         }
-    }
+    }*/
+    
     inputFile.close();
 }
 
+
 void PlayerContainer::writeToFile(const std::string& filename) const {
     std::ofstream outputFile(filename);
-    if (!outputFile) {
-        std::cerr << "Ошибка открытия файла: " << filename << std::endl;
-        return;
-    }
 
-    for (const Player* player : players) {
-        player->writeToFile(outputFile);
+    if (outputFile.is_open()) {
+        boost::archive::text_oarchive oa(outputFile);
+        oa << *this;
+        /*for (const auto& player : players) {
+            player->writeToFile(outputFile);
+        }*/
     }
     outputFile.close();
 }
 
 void PlayerContainer::clearPlayers() {
-    for (Player* player : players) {
-        delete player; // Удаление всех игроков из памяти
-    }
-    players.clear(); // Очистка вектора указателей
+    players.clear();
 }
