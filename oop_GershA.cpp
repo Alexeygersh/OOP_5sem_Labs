@@ -19,7 +19,7 @@ int main() {
     do {
         std::cout << "Система шахматного турнира\n";
         std::cout << "1. Добавить игрока\n";
-        std::cout << "2. Добавить судью\n";
+        std::cout << "2. Добавить Онлайн игрока\n";
         std::cout << "3. Вывести всех игроков\n";
         std::cout << "4. Загрузить игроков из файла\n";
         std::cout << "5. Сохранить игроков в файл\n";
@@ -34,7 +34,7 @@ int main() {
             break;
         }
         case 2: {
-            container.addJudge();
+            container.addOnlinePlayer();
             break;
         }
         case 3: {
@@ -74,5 +74,5 @@ int main() {
     return 0;
 }
 
-BOOST_CLASS_EXPORT(Judge)
+BOOST_CLASS_EXPORT(OnlinePlayer)
 BOOST_CLASS_EXPORT(Player)

@@ -17,10 +17,10 @@ void PlayerContainer::addPlayer() {
     players.push_back(newPlayer);
 }
 
-void PlayerContainer::addJudge() {
-    std::shared_ptr<Judge> newJudge = std::make_shared<Judge>();
-    newJudge->readFromConsole();
-    players.push_back(newJudge);
+void PlayerContainer::addOnlinePlayer() {
+    std::shared_ptr<OnlinePlayer> newOnlinePlayer = std::make_shared<OnlinePlayer>();
+    newOnlinePlayer->readFromConsole();
+    players.push_back(newOnlinePlayer);
 }
 
 void PlayerContainer::displayPlayers() const {

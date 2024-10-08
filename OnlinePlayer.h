@@ -5,11 +5,14 @@
 #include <fstream>
 #include <string>
 
-class Judge : public Player {
+class OnlinePlayer : public Player {
 private:
 
-    int experience; // Стаж судьи (в годах)
-    std::string level; // Уровень квалификации
+    //int experience; // Стаж судьи (в годах)
+    //std::string level; // Уровень квалификации
+    std::string virtual_name;
+    std::string email;
+    unsigned long long int tel;
 
     // предоставление доступа к приватным данным для boost
     friend class boost::serialization::access;
@@ -17,14 +20,15 @@ private:
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version) {
         ar& boost::serialization::base_object<Player>(*this);
-        ar& experience;
-        ar& level;
+        ar& virtual_name;
+        ar& email;
+        ar& tel;
     }
 
 public:
 
-    Judge();
-    virtual ~Judge();
+    OnlinePlayer();
+    virtual ~OnlinePlayer();
 
     virtual void readFromConsole() override;
     virtual void displayToConsole() const override;

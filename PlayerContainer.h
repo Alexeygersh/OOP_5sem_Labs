@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "Judge.h"
+#include "OnlinePlayer.h"
 #include <vector>
 #include <memory>
 #include <boost/serialization/vector.hpp>
@@ -22,7 +22,7 @@ public:
     ~PlayerContainer();
 
     void addPlayer();
-    void addJudge();
+    void addOnlinePlayer();
     void displayPlayers() const;
     void readFromFile(const std::string& filename);
     void writeToFile(const std::string& filename) const;

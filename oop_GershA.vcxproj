@@ -135,10 +135,10 @@
     <ClCompile Include="oop_GershA.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerContainer.cpp" />
-    <ClCompile Include="Judge.cpp" />
+    <ClCompile Include="OnlinePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Judge.h" />
+    <ClInclude Include="OnlinePlayer.h" />
     <ClInclude Include="PlayerContainer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="utils.h" />
